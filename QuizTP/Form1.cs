@@ -20,35 +20,35 @@ namespace QuizTP
             cb_difficulte.Items.Add("Moyen");
             cb_difficulte.Items.Add("Difficile");
             cb_difficulte.Items.Add("Enfer");
-            
         }
 
         private void btn_valider_Click(object sender, EventArgs e)
         {
-            string result = "Bonjour ";
+            Jeu j = new Jeu();
             
-            if (txt_nom.Text != "")
+            
+            if (txt_nom.Text != "" || txt_prenom.Text != "")
             {
-                result += txt_nom.Text + " ";
-                result += txt_prenom.Text;
-                result += "\r \n La dfficultés sélectionnée est: " + cb_difficulte.SelectedItem;
-
+                txt_nom.Text.ToLower();
+                txt_prenom.Text.ToLower();
             }
             else
             {
-                MessageBox.Show("Aucun nom n'est rentré", "ERREUR",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Aucun nom n'est rentré", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            txt_afficher.Text = result;
-
-
-
+            if (cb_difficulte.SelectedIndex >- 1)
+            { 
+                j.Show();
+            } else 
+            {
+                j.Hide();
+            }
         }
         private void cb_difficulte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_difficulte.SelectedItem == "Enfer")
             {
                 this.BackColor = Color.Red;
-                txt_afficher.Font = new Font(txt_afficher.Font, FontStyle.Bold);
                 txt_nom.Font = new Font(txt_nom.Font, FontStyle.Bold);
                 txt_prenom.Font = new Font(txt_prenom.Font, FontStyle.Bold);
                 cb_difficulte.Font = new Font(cb_difficulte.Font, FontStyle.Bold);
@@ -57,14 +57,10 @@ namespace QuizTP
             else
             {
                 this.BackColor = Color.FromArgb(153, 180, 209);
-                txt_afficher.Font = Font;
                 txt_nom.Font = Font;
                 txt_prenom.Font = Font;
                 cb_difficulte.Font = Font;
             }
-
-            
-
 
         }
 
