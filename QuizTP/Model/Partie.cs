@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace QuizTP.Model
 {
@@ -121,6 +123,7 @@ namespace QuizTP.Model
             }
 
         }
+        // Revoir la fonction de fin de partie 
         public void finDePartie(PictureBox pb_image)
         {
             // Fonction à revoir !
@@ -132,13 +135,18 @@ namespace QuizTP.Model
             {
                 score = 0;
                 pb_image.Image = Properties.Resources.Interrogation;
-                Form1 Accueil = new Form1();
-                Accueil.Show();
-            } else if (msg == DialogResult.No) 
+                // voir l'énoncé pour réafficher la première question 
+                numQuestion = 0;
+                
+            } 
+            else if (msg == DialogResult.No)
             {
                 // Revoir la fonction pour remettre à zéro 
+                /*Form1 Accueil = new Form1();
+                Accueil.Show();*/
                 Form1.ActiveForm.Hide();
                 Jeu.ActiveForm.Hide();
+
             }
         }
 
