@@ -13,22 +13,26 @@ using TextBox = System.Windows.Forms.TextBox;
 
 namespace QuizTP.Model
 {
-    internal class Partie
+    public class Partie
     {
         public int score;
         public int difficulte;
         public int nbrQuestion;
         public List<Question> question;
         public int numRep;
+        public int reponseValidQuestion;
         public int numQuestion;
+        public int timerPartie;
+        Timer timer;
 
-        public Partie(List<Question> listeQuestions)
+        public Partie(List<Question> listeQuestions, TextBox txt_timer)
         {
             score = 0;
             difficulte = 0;
             numQuestion = 0;
             question = listeQuestions;
             nbrQuestion = listeQuestions.Count();
+            gestionTimer(txt_timer);
         }
 
         private void changerImg(PictureBox pb_image, bool bonneReponse, bool raz)
@@ -49,17 +53,46 @@ namespace QuizTP.Model
                 pb_image.Image = Properties.Resources.Interrogation;
             }
         }
+        // Revoir la fonction de fin de partie 
+        public void finDePartie(TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage)
+        {
+            // Fonction à revoir !
+            DialogResult msg;
+            timer.Stop();
+            msg = MessageBox.Show("Votre score est de " + score +
+                ".\r\n Voulez vous rejouer", "Fin de la partie",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+
+
+
+            if (msg == DialogResult.Yes)
+            {
+                score = 0;
+                numQuestion = 0;
+                changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, PbImage);
+                changerImg(PbImage, true, true);
+                timer.Start();
+            }
+            else
+            {
+                // Revoir la fonction pour remettre à zéro 
+                /*Form1 Accueil = new Form1();
+                Accueil.Show();*/
+                Form1.ActiveForm.Hide();
+                Jeu.ActiveForm.Hide();
+            }
+        }
         private void calculerScore(bool bonneRep)
         {
-            if (bonneRep == true)
+            if (bonneRep)
             {
-                score += 1;
+                score ++;
             }
         }
 
         public void validerReponse(int reponse, PictureBox pb_image)
         {
-            if (reponse == numRep) // Revoir la condition de bonne réponse 
+            if (reponse == reponseValidQuestion) // Revoir la condition de bonne réponse 
             {
                 calculerScore(true);
                 changerImg(pb_image, true, false);
@@ -118,42 +151,29 @@ namespace QuizTP.Model
                 getCheckBox(i, gd_reponse).Text = reponse;
                 if (bonneReponse == random)
                 { 
-                    numRep = i; 
+                    reponseValidQuestion = i; 
                 }
             }
 
         }
-        // Revoir la fonction de fin de partie 
-        public void finDePartie(PictureBox pb_image)
+        private void Timer_Tick(object sender, EventArgs e, TextBox txt_timer)
         {
-            // Fonction à revoir !
-            DialogResult msg = MessageBox.Show("Votre score est de " + score +
-                ".\r\n Voulez vous rejouer", "Fin de la partie",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            timerPartie++;
+            txt_timer.Text = timerPartie.ToString() + " sec";
+        }
 
-            if (msg == DialogResult.Yes)
-            {
-                score = 0;
-                pb_image.Image = Properties.Resources.Interrogation;
-                // voir l'énoncé pour réafficher la première question 
-                numQuestion = 0;
-                
-            } 
-            else if (msg == DialogResult.No)
-            {
-                // Revoir la fonction pour remettre à zéro 
-                /*Form1 Accueil = new Form1();
-                Accueil.Show();*/
-                Form1.ActiveForm.Hide();
-                Jeu.ActiveForm.Hide();
-
-            }
+        private void gestionTimer(TextBox txt_timer)
+        {
+            timer = new Timer();
+            timer.Interval = 1000;
+            timer.Tick += (sender, e) => Timer_Tick(sender, e, txt_timer);
+            timer.Start();
         }
 
         public void changerQuestion(TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3,  CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox pb_image)
         {
             // PHASE 18: TESTER SI IL RESTE DES QUESTIONS (Revoir la phase précedente)
-            if (numQuestion < nbrQuestion)
+            if (nbrQuestion > numQuestion)
             {
                 aleatoireReponse(txt_affichage, gd_reponse);
                 ckb_reponse1.Checked = false;
@@ -165,7 +185,7 @@ namespace QuizTP.Model
             else 
             {
                 // Appel methode de fin de partie !
-                finDePartie(pb_image);
+                finDePartie(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, pb_image);
             }
         }
 

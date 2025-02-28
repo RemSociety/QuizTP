@@ -24,29 +24,32 @@ namespace QuizTP
 
         private void btn_valider_Click(object sender, EventArgs e)
         {
-            Jeu j = new Jeu();
-            
-            
-            if (txt_nom.Text != "" || txt_prenom.Text != "")
-            {
-                txt_nom.Text.ToLower();
-                txt_prenom.Text.ToLower();
+
+            if (txt_nom.Text == "" || txt_prenom.Text == ""|| cb_difficulte.SelectedIndex < 0) { 
+                if (txt_nom.Text == "" )
+                {
+                    MessageBox.Show("Aucun nom n'est rentré", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                if (txt_prenom.Text == "")
+                {
+                    MessageBox.Show("Aucun prenom n'est rentré", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                if (cb_difficulte.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Aucune difficulté n'est rentré", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
-            {
-                MessageBox.Show("Aucun nom n'est rentré", "ERREUR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            if (cb_difficulte.SelectedIndex >- 1)
             { 
+                Jeu j = new Jeu(txt_nom.Text, txt_prenom.Text, cb_difficulte.SelectedItem.ToString());
                 j.Show();
-            } else 
-            {
-                j.Hide();
+                this.Hide();
             }
         }
         private void cb_difficulte_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cb_difficulte.SelectedItem == "Enfer")
+            if (cb_difficulte.SelectedItem.ToString() == "Enfer")
             {
                 this.BackColor = Color.Red;
                 txt_nom.Font = new Font(txt_nom.Font, FontStyle.Bold);
@@ -64,6 +67,9 @@ namespace QuizTP
 
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

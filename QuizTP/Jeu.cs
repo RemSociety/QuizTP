@@ -1,24 +1,19 @@
 ﻿using QuizTP.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuizTP
 {
     public partial class Jeu : Form
     {
-        int reponseQuestion = 0;
+
         Partie partie;
-
-        public Jeu()
+        int reponseQuestion = 0;
+        
+        private void Init()
         {
-
             InitializeComponent();
             List<Question> ListeQuestions = new List<Question>();
             ListeQuestions.Add(new Question("Quelle est la capitale de la France ?", 1, 1, "Paris", "Londres", "Berlin", "Madrid", "Rome"));
@@ -32,10 +27,17 @@ namespace QuizTP
             ListeQuestions.Add(new Question("Quelle est la capitale de la Portugal ?", 4, 1, "Bruxelles", "Berne", "Luxembourg", "Lisbonne", "Rome"));
             ListeQuestions.Add(new Question("Quelle est la capitale de l'Autriche ?", 5, 1, "Bruxelles", "Berne", "Luxembourg", "Lisbonne", "Vienne"));
 
-            partie = new Partie(ListeQuestions);
+            partie = new Partie(ListeQuestions, txt_timer);
             partie.changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, this, gb_reponse, pb_question);
-            
+        }
+        
 
+        public Jeu(string nomJ, string prenomJ, string difficultePartie)
+        {
+            Init();
+            txt_joueur.Text = nomJ +" "+ prenomJ;
+            txt_difficulte.Text = difficultePartie;
+            
         }
 
         private void button_valider_Click(object sender, EventArgs e)
@@ -58,5 +60,9 @@ namespace QuizTP
             ((CheckBox)sender).Checked = true;
             reponseQuestion = Convert.ToInt16(((CheckBox)sender).Name.Substring(11, 1));
         }
+
+        
+        
+
     }
 }
