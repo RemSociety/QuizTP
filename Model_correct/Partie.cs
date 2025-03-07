@@ -111,7 +111,7 @@ namespace QuizzAndTest.Model
 
         }
 
-        public void changerQuestion( TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5,Form formulaire, GroupBox gd_reponse, PictureBox PbImage,Panel pnl_Principal)
+        public void changerQuestion(TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5,Form formulaire, GroupBox gd_reponse, PictureBox PbImage,Panel pnl_Principal)
         {
                         
             if (nombreQuestions > numeroQuestion)
@@ -185,7 +185,6 @@ namespace QuizzAndTest.Model
                 }
             }
             return null;
-
         }
 
         public void gestionTimer(TextBox txt_timer, ProgressBar pb_dureeRepQuestion, TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage, Label numQuestion, Panel pnl_principal)

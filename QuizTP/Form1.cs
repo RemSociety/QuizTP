@@ -71,5 +71,10 @@ namespace QuizTP
         {
 
         }
+
+        private void btn_fermerForm1_MouseHover(object sender, EventArgs e)
+        {
+            btn_fermerForm1.BackColor = Color.Red;
+        }
     }
 }

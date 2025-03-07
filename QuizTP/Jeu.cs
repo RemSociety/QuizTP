@@ -1,6 +1,7 @@
 ﻿using QuizTP.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace QuizTP
             ListeQuestions.Add(new Question("Quelle est la capitale de l'Autriche ?", 5, 1, "Bruxelles", "Berne", "Luxembourg", "Lisbonne", "Vienne"));
 
             partie = new Partie(ListeQuestions, txt_timer);
-            partie.changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, this, gb_reponse, pb_question);
+            partie.changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, this, gd_reponse,PbImage, pnl_Principal);
         }
         
 
@@ -43,16 +44,16 @@ namespace QuizTP
         private void button_valider_Click(object sender, EventArgs e)
         {
             
-            partie.validerReponse(reponseQuestion, pb_question);
+            partie.validerReponse(reponseQuestion, PbImage);
             partie.numQuestion++;
-            partie.changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, this, gb_reponse, pb_question);
+            partie.changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, this, gd_reponse, PbImage, pnl);
             lbl_numero.Text = "Question " +(partie.numQuestion + 1).ToString();
             reponseQuestion = 0;
         }
 
         private void ckb_reponse1_Click(object sender, EventArgs e)
         {
-            foreach (var box in gb_reponse.Controls.OfType<CheckBox>())
+            foreach (var box in gd_reponse.Controls.OfType<CheckBox>())
             {
                 box.Checked = false;
             }
@@ -61,8 +62,14 @@ namespace QuizTP
             reponseQuestion = Convert.ToInt16(((CheckBox)sender).Name.Substring(11, 1));
         }
 
-        
-        
+        private void Jeu_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void btn_fermerJeu_MouseHover(object sender, EventArgs e)
+        {
+            btn_fermerJeu.BackColor = Color.Red;
+        }
     }
 }
