@@ -8,28 +8,30 @@ namespace QuizTP.Model
 {
     public class SousFormulaire
     {
-        public Panel PanelSousFormaulire;
-        public Form activeForm = null;
-
+        public Panel PanelSousFormulaire;
+        
         public SousFormulaire(Panel panelenvoit) 
         {
-            PanelSousFormaulire = panelenvoit;
+            PanelSousFormulaire = panelenvoit;
         }
+
+        public Form activeForm = null;
+
 
         public void OpenChildForm(Form formEnfant)
         {
             if (activeForm != null)
-            {
                 activeForm.Close();
-                activeForm = formEnfant;
-                formEnfant.TopLevel = false;
-                formEnfant.FormBorderStyle = FormBorderStyle.None;
-                formEnfant.Dock = DockStyle.Fill;
-                PanelSousFormaulire.Controls.Add(formEnfant);
-                PanelSousFormaulire.Tag = formEnfant;
-                formEnfant.BringToFront();
-                formEnfant.Show();
-            }
+
+            activeForm = formEnfant;
+            formEnfant.TopLevel = false;
+            formEnfant.FormBorderStyle = FormBorderStyle.None;
+            formEnfant.Dock = DockStyle.Fill;
+            PanelSousFormulaire.Controls.Add(formEnfant);
+            PanelSousFormulaire.Tag = formEnfant;
+            formEnfant.BringToFront();
+            formEnfant.Show();
+            
         }
 
     }

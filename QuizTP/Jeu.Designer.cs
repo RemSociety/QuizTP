@@ -44,7 +44,7 @@
             this.txt_difficulte = new System.Windows.Forms.TextBox();
             this.lbl_joueur = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pb_dureeRepQuestoion = new System.Windows.Forms.ProgressBar();
+            this.pb_dureeRepQuestion = new System.Windows.Forms.ProgressBar();
             this.lbl_tempRep = new System.Windows.Forms.Label();
             this.PbImage = new System.Windows.Forms.PictureBox();
             this.btn_fermerJeu = new System.Windows.Forms.Button();
@@ -84,9 +84,9 @@
             // 
             // txt_timer
             // 
-            this.txt_timer.Enabled = false;
             this.txt_timer.Location = new System.Drawing.Point(690, 67);
             this.txt_timer.Name = "txt_timer";
+            this.txt_timer.ReadOnly = true;
             this.txt_timer.Size = new System.Drawing.Size(252, 20);
             this.txt_timer.TabIndex = 6;
             // 
@@ -215,13 +215,14 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Difficulté";
             // 
-            // pb_dureeRepQuestoion
+            // pb_dureeRepQuestion
             // 
-            this.pb_dureeRepQuestoion.Location = new System.Drawing.Point(690, 384);
-            this.pb_dureeRepQuestoion.Maximum = 15;
-            this.pb_dureeRepQuestoion.Name = "pb_dureeRepQuestoion";
-            this.pb_dureeRepQuestoion.Size = new System.Drawing.Size(252, 20);
-            this.pb_dureeRepQuestoion.TabIndex = 14;
+            this.pb_dureeRepQuestion.Location = new System.Drawing.Point(690, 384);
+            this.pb_dureeRepQuestion.Maximum = 15;
+            this.pb_dureeRepQuestion.Name = "pb_dureeRepQuestion";
+            this.pb_dureeRepQuestion.Size = new System.Drawing.Size(252, 20);
+            this.pb_dureeRepQuestion.Step = 1;
+            this.pb_dureeRepQuestion.TabIndex = 14;
             // 
             // lbl_tempRep
             // 
@@ -250,6 +251,7 @@
             this.btn_fermerJeu.TabIndex = 16;
             this.btn_fermerJeu.Text = "X";
             this.btn_fermerJeu.UseVisualStyleBackColor = true;
+            this.btn_fermerJeu.Click += new System.EventHandler(this.btn_fermerJeu_Click);
             this.btn_fermerJeu.MouseHover += new System.EventHandler(this.btn_fermerJeu_MouseHover);
             // 
             // Jeu
@@ -259,7 +261,7 @@
             this.ClientSize = new System.Drawing.Size(963, 566);
             this.Controls.Add(this.btn_fermerJeu);
             this.Controls.Add(this.lbl_tempRep);
-            this.Controls.Add(this.pb_dureeRepQuestoion);
+            this.Controls.Add(this.pb_dureeRepQuestion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_joueur);
             this.Controls.Add(this.txt_difficulte);
@@ -275,7 +277,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Jeu";
             this.Text = "Jeu";
-            this.Load += new System.EventHandler(this.Jeu_Load);
             this.gd_reponse.ResumeLayout(false);
             this.gd_reponse.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbImage)).EndInit();
@@ -303,8 +304,8 @@
         private System.Windows.Forms.TextBox txt_difficulte;
         private System.Windows.Forms.Label lbl_joueur;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar pb_dureeRepQuestoion;
         private System.Windows.Forms.Label lbl_tempRep;
         private System.Windows.Forms.Button btn_fermerJeu;
+        public System.Windows.Forms.ProgressBar pb_dureeRepQuestion;
     }
 }

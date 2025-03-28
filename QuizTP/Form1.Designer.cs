@@ -113,6 +113,7 @@
             this.btn_fermerForm1.TabIndex = 9;
             this.btn_fermerForm1.Text = "X";
             this.btn_fermerForm1.UseVisualStyleBackColor = false;
+            this.btn_fermerForm1.Click += new System.EventHandler(this.btn_fermerForm1_Click);
             this.btn_fermerForm1.MouseHover += new System.EventHandler(this.btn_fermerForm1_MouseHover);
             // 
             // Form1

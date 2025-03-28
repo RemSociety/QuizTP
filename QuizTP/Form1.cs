@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuizTP.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace QuizTP
 {
@@ -20,6 +22,7 @@ namespace QuizTP
             cb_difficulte.Items.Add("Moyen");
             cb_difficulte.Items.Add("Difficile");
             cb_difficulte.Items.Add("Enfer");
+
         }
 
         private void btn_valider_Click(object sender, EventArgs e)
@@ -41,9 +44,12 @@ namespace QuizTP
                 }
             }
             else
-            { 
+            {
+                
+                SousFormulaire SF = new SousFormulaire((System.Windows.Forms.Application.OpenForms["Menu"] as Menu).pnl_principal);
+                
                 Jeu j = new Jeu(txt_nom.Text, txt_prenom.Text, cb_difficulte.SelectedItem.ToString());
-                j.Show();
+                SF.OpenChildForm(j);
                 this.Hide();
             }
         }
@@ -75,6 +81,11 @@ namespace QuizTP
         private void btn_fermerForm1_MouseHover(object sender, EventArgs e)
         {
             btn_fermerForm1.BackColor = Color.Red;
+        }
+
+        private void btn_fermerForm1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

@@ -12,6 +12,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms;
 using TextBox = System.Windows.Forms.TextBox;
 using ProgressBar = System.Windows.Forms.ProgressBar;
+using Timer = System.Windows.Forms.Timer;
+
+
 
 namespace QuizTP.Model
 {
@@ -63,6 +66,7 @@ namespace QuizTP.Model
             {
                 calculerScore(true);
                 changerImg(PbImage, true, false);
+                
             }
             else
             {
@@ -79,22 +83,22 @@ namespace QuizTP.Model
             }
         }
 
-        private void changerImg(PictureBox pb_image, bool bonneReponse, bool raz)
+        private void changerImg(PictureBox PbImage, bool bonneReponse, bool raz)
         {
             if (!raz)
             {
                 if (bonneReponse)
                 {
-                    pb_image.Image = Properties.Resources.vrai;
+                    PbImage.Image = Properties.Resources.vrai;
                 }
                 else
                 {
-                    pb_image.Image = Properties.Resources.faux;
+                    PbImage.Image = Properties.Resources.faux;
                 }
             }
             else
             {
-                pb_image.Image = Properties.Resources.Interrogation;
+                PbImage.Image = Properties.Resources.Interrogation;
             }
         }
 
@@ -103,7 +107,7 @@ namespace QuizTP.Model
         {
             // Fonction à revoir !r\n Voulez vous rejouer 
             DialogResult msg;
-            timer.Stop();
+            
             SF = new SousFormulaire(pnl_principal);
             msg = MessageBox.Show("Votre score est de " + score + "\r\n vous avez fini la partie en cours " + dureePartie + " secondes.\r\n Voulez vous rejouer ", "Fin de la partie",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
@@ -112,20 +116,21 @@ namespace QuizTP.Model
 
             if (msg == DialogResult.Yes)
             {
+                SF.OpenChildForm(new Form1());
                 score = 0;
                 numQuestion = 0;
                 changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, PbImage, pnl_principal);
                 changerImg(PbImage, true, true);
-                timer.Start();
+                // timer.Start();
             }
             else
             {
                 // Revoir la fonction pour remettre à zéro 
                 /*Form1 Accueil = new Form1();
                 Accueil.Show();*/
-                SF.OpenChildForm(new Form1());
                 Form1.ActiveForm.Hide();
-                Jeu.ActiveForm.Hide();
+                //Form1.ActiveForm.Hide();
+                //Jeu.ActiveForm.Hide();
 
             }
         }
@@ -183,7 +188,7 @@ namespace QuizTP.Model
                         reponse = question[numQuestion].proposition5;
                         break;
                 }
-                getCheckBox(i, gd_reponse).Text = reponse;
+                getTextBox(i, gd_reponse).Text = reponse;
                 if (bonneReponse == random)
                 { 
                     reponseValidQuestion = i; 
@@ -191,41 +196,44 @@ namespace QuizTP.Model
             }
 
         }
-        private CheckBox getCheckBox(int indice, GroupBox gd_reponse)
+        private CheckBox getTextBox(int indice, GroupBox gd_reponse)
         {
             foreach (Control c in gd_reponse.Controls)
             {
                 if (c.GetType() == typeof(CheckBox) && c.Name == "ckb_reponse" + indice.ToString())
                 {
-                    return (CheckBox)c;
+                    return ((CheckBox)c);
                 }
             }
             return null;
         }
 
 
-        private void gestionTimer(TextBox txt_timer, ProgressBar pb_dureeRepQuestion, TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage, Label numeroQuestion, Panel pnl_principal)
+        public void gestionTimer(TextBox txt_timer, ProgressBar pb_dureeRepQuestion, TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage, Label numeroQuestion, Panel pnl_principal)
         {
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += (sender, e) => Timer_Tick(sender, e, txt_timer, pb_dureeRepQuestion,txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, PbImage, numeroQuestion, pnl_principal);
             timer.Start();
+            
         }
 
-        private void Timer_Tick(object sender, EventArgs e, TextBox txt_timer, ProgressBar pb_dureeRepQuestion, TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage, Label numeroQuestion, Panel pnl_principal)
+        public void Timer_Tick(object sender, EventArgs e, TextBox txt_timer, ProgressBar pb_dureeRepQuestion, TextBox txt_affichage, CheckBox ckb_reponse1, CheckBox ckb_reponse2, CheckBox ckb_reponse3, CheckBox ckb_reponse4, CheckBox ckb_reponse5, Form formulaire, GroupBox gd_reponse, PictureBox PbImage, Label numeroQuestion, Panel pnl_principal)
         {
             timerPartie++;
             dureeTQuestion++;
             pb_dureeRepQuestion.Increment(1);
             txt_timer.Text = timerPartie.ToString() + " sec";
+            
+
             if (dureeTQuestion > 15)
             {
                 validerReponse(0, PbImage);
                 numQuestion++;
                 numeroQuestion.Text = (numQuestion + 1).ToString();
                 changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, PbImage, pnl_principal);
-                changerImg(PbImage, true, true);
-                timer.Start();
+                pb_dureeRepQuestion.Value = 0;
+                dureeTQuestion = 0;
             }
         }
 

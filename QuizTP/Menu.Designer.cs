@@ -64,6 +64,7 @@
             this.démarrerToolStripMenuItem.Name = "démarrerToolStripMenuItem";
             this.démarrerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.démarrerToolStripMenuItem.Text = "Démarrer";
+            this.démarrerToolStripMenuItem.Click += new System.EventHandler(this.démarrerToolStripMenuItem_Click);
             // 
             // scoreToolStripMenuItem
             // 
@@ -115,6 +116,6 @@
         private System.Windows.Forms.ToolStripMenuItem scoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDesQuestionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.Panel pnl_principal;
+        public System.Windows.Forms.Panel pnl_principal;
     }
 }
