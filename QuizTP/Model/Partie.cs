@@ -107,9 +107,9 @@ namespace QuizTP.Model
         {
             // Fonction à revoir !r\n Voulez vous rejouer 
             DialogResult msg;
-            
+            timer.Stop();
             SF = new SousFormulaire(pnl_principal);
-            msg = MessageBox.Show("Votre score est de " + score + "\r\n vous avez fini la partie en cours " + dureePartie + " secondes.\r\n Voulez vous rejouer ", "Fin de la partie",
+            msg = MessageBox.Show("Votre score est de " + score + "\r\n vous avez fini la partie en cours " + timerPartie + " secondes.\r\n Voulez vous rejouer ", "Fin de la partie",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
 
@@ -117,18 +117,18 @@ namespace QuizTP.Model
             if (msg == DialogResult.Yes)
             {
                 SF.OpenChildForm(new Form1());
-                score = 0;
+                score = 0; 
                 numQuestion = 0;
                 changerQuestion(txt_affichage, ckb_reponse1, ckb_reponse2, ckb_reponse3, ckb_reponse4, ckb_reponse5, formulaire, gd_reponse, PbImage, pnl_principal);
                 changerImg(PbImage, true, true);
-                // timer.Start();
+                timer.Start();
             }
             else
             {
                 // Revoir la fonction pour remettre à zéro 
                 /*Form1 Accueil = new Form1();
                 Accueil.Show();*/
-                Form1.ActiveForm.Hide();
+                Form1.ActiveForm.Close();
                 //Form1.ActiveForm.Hide();
                 //Jeu.ActiveForm.Hide();
 

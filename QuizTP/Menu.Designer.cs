@@ -35,6 +35,7 @@
             this.gestionDesQuestionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pnl_principal = new System.Windows.Forms.Panel();
+            this.access_view = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +75,8 @@
             // 
             // gestionDesQuestionsToolStripMenuItem
             // 
+            this.gestionDesQuestionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.access_view});
             this.gestionDesQuestionsToolStripMenuItem.Name = "gestionDesQuestionsToolStripMenuItem";
             this.gestionDesQuestionsToolStripMenuItem.Size = new System.Drawing.Size(134, 20);
             this.gestionDesQuestionsToolStripMenuItem.Text = "Gestion des questions";
@@ -90,6 +93,13 @@
             this.pnl_principal.Name = "pnl_principal";
             this.pnl_principal.Size = new System.Drawing.Size(981, 607);
             this.pnl_principal.TabIndex = 1;
+            // 
+            // access_view
+            // 
+            this.access_view.Name = "access_view";
+            this.access_view.Size = new System.Drawing.Size(180, 22);
+            this.access_view.Text = "Accéder à la vue";
+            this.access_view.Click += new System.EventHandler(this.access_view_Click);
             // 
             // Menu
             // 
@@ -117,5 +127,6 @@
         private System.Windows.Forms.ToolStripMenuItem gestionDesQuestionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         public System.Windows.Forms.Panel pnl_principal;
+        private System.Windows.Forms.ToolStripMenuItem access_view;
     }
 }

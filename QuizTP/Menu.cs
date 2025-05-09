@@ -40,5 +40,10 @@ namespace QuizTP
         { 
             OpenChildForm(new Form1());
         }
+
+        private void access_view_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new gestionQuestion());
+        }
     }
 }

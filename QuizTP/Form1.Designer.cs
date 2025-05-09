@@ -145,9 +145,9 @@
         private System.Windows.Forms.TextBox txt_prenom;
         private System.Windows.Forms.Label lbl_nom;
         private System.Windows.Forms.Label lbl_prenom;
-        private System.Windows.Forms.ComboBox cb_difficulte;
         private System.Windows.Forms.Label lbl_difficulte;
         private System.Windows.Forms.Button btn_fermerForm1;
+        public System.Windows.Forms.ComboBox cb_difficulte;
     }
 }
 
